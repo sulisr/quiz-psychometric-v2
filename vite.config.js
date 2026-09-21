@@ -7,5 +7,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: "/quiz-psychometric/",
+  base: "/quiz-psychometric-v2/",
 });
