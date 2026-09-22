@@ -3,14 +3,14 @@ import {
   useMemo,
   useState
 } from "react";
+
+import {
+  STATIC_USERS
+} from "./data/users";
+
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbzQRjbni9mHn-awN4gGyGCD3iBdGaYqJTDerzuHbkEW8fXi5R9X4ZA4FqCkcCPJRVeT/exec";
 
-const USER_BROWSER_CACHE_KEY =
-  "psychometric_users_v1";
-
-const USER_BROWSER_CACHE_DURATION =
-  6 * 60 * 60 * 1000;
 
 
 function createSubmissionId() {
@@ -51,91 +51,72 @@ function shuffleArray(items) {
 function getQuestionKey(question) {
   return `${question.set}|${question.id}`;
 }
-function getUserBrowserCache() {
-  try {
-    const cachedText =
-      localStorage.getItem(
-        USER_BROWSER_CACHE_KEY
-      );
 
-    if (!cachedText) {
-      return null;
-    }
-
-    const cachedValue =
-      JSON.parse(cachedText);
-
-    if (
-      !cachedValue ||
-      !Array.isArray(cachedValue.users) ||
-      !cachedValue.savedAt
-    ) {
-      localStorage.removeItem(
-        USER_BROWSER_CACHE_KEY
-      );
-
-      return null;
-    }
-
-    const cacheAge =
-      Date.now() -
-      Number(cachedValue.savedAt);
-
-    if (
-      cacheAge >
-      USER_BROWSER_CACHE_DURATION
-    ) {
-      localStorage.removeItem(
-        USER_BROWSER_CACHE_KEY
-      );
-
-      return null;
-    }
-
-    return cachedValue.users;
-  } catch (error) {
-    console.warn(
-      "Cache user browser gagal dibaca:",
-      error
-    );
-
-    localStorage.removeItem(
-      USER_BROWSER_CACHE_KEY
-    );
-
-    return null;
-  }
-}
-
-
-function saveUserBrowserCache(users) {
-  try {
-    localStorage.setItem(
-      USER_BROWSER_CACHE_KEY,
-      JSON.stringify({
-        savedAt: Date.now(),
-        users: users
-      })
-    );
-
-    return true;
-  } catch (error) {
-    console.warn(
-      "Cache user browser gagal disimpan:",
-      error
-    );
-
-    return false;
-  }
-}
 
 export default function App() {
-  const [users, setUsers] = useState([]);
-  const [usersLoading, setUsersLoading] =
-    useState(true);
+  const [users] = useState(() => {
+  const registeredUsers = new Set();
 
-  const [usersError, setUsersError] =
-    useState("");
+  return STATIC_USERS
+    .map((item) => {
+      const participantName =
+        String(
+          item.participantName || ""
+        ).trim();
+
+      const carrier =
+        String(
+          item.carrier || ""
+        ).trim();
+
+      return {
+        participantName,
+        carrier,
+
+        displayName:
+          carrier !== ""
+            ? `${participantName} - ${carrier}`
+            : participantName
+      };
+    })
+    .filter((item) => {
+      if (
+        item.participantName === ""
+      ) {
+        return false;
+      }
+
+      const uniqueKey =
+        `${item.participantName}|${item.carrier}`
+          .toLowerCase();
+
+      if (
+        registeredUsers.has(
+          uniqueKey
+        )
+      ) {
+        return false;
+      }
+
+      registeredUsers.add(
+        uniqueKey
+      );
+
+      return true;
+    })
+    .sort((first, second) => {
+      return first.displayName.localeCompare(
+        second.displayName,
+        "id",
+        {
+          sensitivity: "base"
+        }
+      );
+    });
+});
+
+const usersLoading = false;
+const usersError = "";
 
   const [search, setSearch] = useState("");
   const [user, setUser] = useState(null);
@@ -171,112 +152,7 @@ export default function App() {
   const [submitError, setSubmitError] =
   useState("");
 
-useEffect(() => {
-  let componentActive = true;
 
-  async function loadUsers() {
-  const cachedUsers =
-    getUserBrowserCache();
-
-  if (
-    Array.isArray(cachedUsers) &&
-    cachedUsers.length > 0
-  ) {
-    if (componentActive) {
-      setUsers(cachedUsers);
-      setUsersLoading(false);
-      setUsersError("");
-    }
-
-    console.log(
-      "Daftar user dimuat dari cache browser."
-    );
-
-    return;
-  }
-
-  setUsersLoading(true);
-  setUsersError("");
-
-    try {
-      const response = await fetch(
-        `${GOOGLE_SCRIPT_URL}?action=getUsers`
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          `HTTP error ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(
-          data.message ||
-            "Daftar user gagal dimuat."
-        );
-      }
-
-      if (!Array.isArray(data.users)) {
-        throw new Error(
-          "Format daftar user tidak sesuai."
-        );
-      }
-
-      const cleanedUsers = data.users
-        .map((item) => ({
-          participantName: String(
-            item.participantName || ""
-          ).trim(),
-
-          carrier: String(
-            item.carrier || ""
-          ).trim(),
-
-          displayName: String(
-            item.displayName || ""
-          ).trim()
-        }))
-        .filter(
-          (item) =>
-            item.participantName !== "" &&
-            item.displayName !== ""
-        );
-
-      if (componentActive) {
-        setUsers(cleanedUsers);
-
-        saveUserBrowserCache(
-          cleanedUsers
-        );
-      }
-    } catch (error) {
-      console.error(
-        "Gagal memuat daftar user:",
-        error
-      );
-
-      if (componentActive) {
-        setUsers([]);
-
-        setUsersError(
-          "Daftar user gagal dimuat. Periksa koneksi internet lalu muat ulang halaman."
-        );
-      }
-    } finally {
-      if (componentActive) {
-        setUsersLoading(false);
-      }
-    }
-  }
-
-  loadUsers();
-
-  return () => {
-    componentActive = false;
-  };
-}, []);
 
 useEffect(() => {
   let componentActive = true;
@@ -369,26 +245,35 @@ useEffect(() => {
   };
 }, []);
 
-  const filteredUsers = useMemo(() => {
-    const keyword =
-      search.trim().toLowerCase();
+const filteredUsers = useMemo(() => {
+  const keyword =
+    search.trim().toLowerCase();
 
-    /*
-    * Jangan menampilkan seluruh user
-    * ketika kolom pencarian masih kosong.
-    */
-    if (keyword.length < 2) {
-      return [];
-    }
+  /*
+   * Jangan menampilkan seluruh user
+   * sebelum mengetik minimal 2 karakter.
+   */
+  if (keyword.length < 2) {
+    return [];
+  }
 
-    return users
-      .filter((item) => {
-        return item.displayName
-          .toLowerCase()
-          .includes(keyword);
-      })
-      .slice(0, 30);
-  }, [search, users]);
+  return users
+    .filter((item) => {
+      const searchableText = [
+        item.participantName,
+        item.carrier,
+        item.displayName
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return searchableText.includes(
+        keyword
+      );
+    })
+    .slice(0, 30);
+}, [search, users]);
+
 
   const currentQuestion = questions[questionIndex];
   const hasStarted = questions.length > 0;
