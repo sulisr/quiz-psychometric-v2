@@ -4,6 +4,10 @@ export const STATIC_USERS = [
     "carrier": "KMDI"
   },
   {
+    "participantName": "tes pakai hp",
+    "carrier" : "vld"
+  },
+  {
     "participantName": "A ANDRY ERWIN M",
     "carrier": "PAM"
   },
