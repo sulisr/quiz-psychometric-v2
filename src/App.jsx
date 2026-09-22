@@ -6,6 +6,11 @@ import {
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbzQRjbni9mHn-awN4gGyGCD3iBdGaYqJTDerzuHbkEW8fXi5R9X4ZA4FqCkcCPJRVeT/exec";
 
+const USER_BROWSER_CACHE_KEY =
+  "psychometric_users_v1";
+
+const USER_BROWSER_CACHE_DURATION =
+  6 * 60 * 60 * 1000;
 
 
 function createSubmissionId() {
@@ -45,6 +50,83 @@ function shuffleArray(items) {
 
 function getQuestionKey(question) {
   return `${question.set}|${question.id}`;
+}
+function getUserBrowserCache() {
+  try {
+    const cachedText =
+      localStorage.getItem(
+        USER_BROWSER_CACHE_KEY
+      );
+
+    if (!cachedText) {
+      return null;
+    }
+
+    const cachedValue =
+      JSON.parse(cachedText);
+
+    if (
+      !cachedValue ||
+      !Array.isArray(cachedValue.users) ||
+      !cachedValue.savedAt
+    ) {
+      localStorage.removeItem(
+        USER_BROWSER_CACHE_KEY
+      );
+
+      return null;
+    }
+
+    const cacheAge =
+      Date.now() -
+      Number(cachedValue.savedAt);
+
+    if (
+      cacheAge >
+      USER_BROWSER_CACHE_DURATION
+    ) {
+      localStorage.removeItem(
+        USER_BROWSER_CACHE_KEY
+      );
+
+      return null;
+    }
+
+    return cachedValue.users;
+  } catch (error) {
+    console.warn(
+      "Cache user browser gagal dibaca:",
+      error
+    );
+
+    localStorage.removeItem(
+      USER_BROWSER_CACHE_KEY
+    );
+
+    return null;
+  }
+}
+
+
+function saveUserBrowserCache(users) {
+  try {
+    localStorage.setItem(
+      USER_BROWSER_CACHE_KEY,
+      JSON.stringify({
+        savedAt: Date.now(),
+        users: users
+      })
+    );
+
+    return true;
+  } catch (error) {
+    console.warn(
+      "Cache user browser gagal disimpan:",
+      error
+    );
+
+    return false;
+  }
 }
 
 export default function App() {
@@ -93,8 +175,28 @@ useEffect(() => {
   let componentActive = true;
 
   async function loadUsers() {
-    setUsersLoading(true);
-    setUsersError("");
+  const cachedUsers =
+    getUserBrowserCache();
+
+  if (
+    Array.isArray(cachedUsers) &&
+    cachedUsers.length > 0
+  ) {
+    if (componentActive) {
+      setUsers(cachedUsers);
+      setUsersLoading(false);
+      setUsersError("");
+    }
+
+    console.log(
+      "Daftar user dimuat dari cache browser."
+    );
+
+    return;
+  }
+
+  setUsersLoading(true);
+  setUsersError("");
 
     try {
       const response = await fetch(
@@ -144,6 +246,10 @@ useEffect(() => {
 
       if (componentActive) {
         setUsers(cleanedUsers);
+
+        saveUserBrowserCache(
+          cleanedUsers
+        );
       }
     } catch (error) {
       console.error(
@@ -264,18 +370,24 @@ useEffect(() => {
 }, []);
 
   const filteredUsers = useMemo(() => {
-  const keyword =
-    search.trim().toLowerCase();
+    const keyword =
+      search.trim().toLowerCase();
 
-  if (keyword === "") {
-    return users;
-  }
+    /*
+    * Jangan menampilkan seluruh user
+    * ketika kolom pencarian masih kosong.
+    */
+    if (keyword.length < 2) {
+      return [];
+    }
 
-  return users.filter((item) => {
-    return item.displayName
-      .toLowerCase()
-      .includes(keyword);
-  });
+    return users
+      .filter((item) => {
+        return item.displayName
+          .toLowerCase()
+          .includes(keyword);
+      })
+      .slice(0, 30);
   }, [search, users]);
 
   const currentQuestion = questions[questionIndex];
@@ -807,6 +919,16 @@ async function submitQuiz() {
                           )}
                         </button>
                       ))
+                    ) : search.trim().length < 2 ? (
+                      <div className="p-4 text-center">
+                        <p className="text-sm font-medium text-slate-600">
+                          Ketik minimal 2 karakter
+                        </p>
+
+                        <p className="mt-1 text-xs text-slate-400">
+                          Masukkan sebagian nama peserta atau LP.
+                        </p>
+                      </div>
                     ) : (
                       <p className="p-3 text-sm text-slate-500">
                         User tidak ditemukan.
