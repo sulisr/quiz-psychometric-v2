@@ -249,31 +249,24 @@ const filteredUsers = useMemo(() => {
   const keyword =
     search.trim().toLowerCase();
 
-  /*
-   * Jangan menampilkan seluruh user
-   * sebelum mengetik minimal 2 karakter.
-   */
-  if (keyword.length < 2) {
-    return [];
+  if (keyword === "") {
+    return users;
   }
 
-  return users
-    .filter((item) => {
-      const searchableText = [
-        item.participantName,
-        item.carrier,
-        item.displayName
-      ]
-        .join(" ")
-        .toLowerCase();
+  return users.filter((item) => {
+    const searchableText = [
+      item.participantName,
+      item.carrier,
+      item.displayName
+    ]
+      .join(" ")
+      .toLowerCase();
 
-      return searchableText.includes(
-        keyword
-      );
-    })
-    .slice(0, 30);
+    return searchableText.includes(
+      keyword
+    );
+  });
 }, [search, users]);
-
 
   const currentQuestion = questions[questionIndex];
   const hasStarted = questions.length > 0;
@@ -804,16 +797,6 @@ async function submitQuiz() {
                           )}
                         </button>
                       ))
-                    ) : search.trim().length < 2 ? (
-                      <div className="p-4 text-center">
-                        <p className="text-sm font-medium text-slate-600">
-                          Ketik minimal 2 karakter
-                        </p>
-
-                        <p className="mt-1 text-xs text-slate-400">
-                          Masukkan sebagian nama peserta atau LP.
-                        </p>
-                      </div>
                     ) : (
                       <p className="p-3 text-sm text-slate-500">
                         User tidak ditemukan.
