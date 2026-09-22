@@ -60,8 +60,6 @@ export default function App() {
   const [dropdownOpen, setDropdownOpen] =
     useState(false);
 
-  const [questionBank, setQuestionBank] =
-  useState([]);
 
   const [questionSets, setQuestionSets] =
     useState([]);
@@ -177,13 +175,13 @@ useEffect(() => {
 useEffect(() => {
   let componentActive = true;
 
-  async function loadQuestions() {
+  async function loadQuestionSets() {
     setQuestionsLoading(true);
     setQuestionsError("");
 
     try {
       const response = await fetch(
-        `${GOOGLE_SCRIPT_URL}?action=getQuestions`
+        `${import.meta.env.BASE_URL}question-sets.json`
       );
 
       if (!response.ok) {
@@ -194,62 +192,61 @@ useEffect(() => {
 
       const data = await response.json();
 
-      if (!data.success) {
-        const firstError =
-          Array.isArray(data.validationErrors) &&
-          data.validationErrors.length > 0
-            ? ` Baris bermasalah: ${
-                data.validationErrors[0].row
-              }.`
-            : "";
-
-        throw new Error(
-          (data.message ||
-            "Bank pertanyaan gagal dimuat.") +
-            firstError
-        );
-      }
-
-      if (!Array.isArray(data.questions)) {
-        throw new Error(
-          "Format bank pertanyaan tidak sesuai."
-        );
-      }
-
       if (!Array.isArray(data.sets)) {
         throw new Error(
-          "Informasi set pertanyaan tidak ditemukan."
+          "Format daftar set pertanyaan tidak sesuai."
         );
       }
 
-      const validSets = data.sets.filter(
-        (item) =>
-          Number(item.questionCount) === 15
-      );
+      const validSets =
+        data.sets.filter((item) => {
+          const setName =
+            String(
+              item.set || ""
+            ).trim();
+
+          const setFile =
+            String(
+              item.file || ""
+            ).trim();
+
+          const questionCount =
+            Number(
+              item.questionCount
+            );
+
+          return (
+            setName !== "" &&
+            setFile !== "" &&
+            questionCount === 15
+          );
+        });
 
       if (validSets.length === 0) {
         throw new Error(
-          "Tidak ditemukan set yang memiliki tepat 15 pertanyaan."
+          "Tidak ditemukan set dengan tepat 15 pertanyaan."
         );
       }
 
       if (componentActive) {
-        setQuestionBank(data.questions);
         setQuestionSets(validSets);
+
+        console.log(
+          `${validSets.length} set pertanyaan berhasil dimuat dari GitHub.`
+        );
       }
     } catch (error) {
       console.error(
-        "Gagal memuat bank pertanyaan:",
+        "Gagal memuat daftar set pertanyaan:",
         error
       );
 
       if (componentActive) {
-        setQuestionBank([]);
         setQuestionSets([]);
 
         setQuestionsError(
           error.message ||
-            "Bank pertanyaan gagal dimuat."
+            "Daftar set pertanyaan gagal dimuat."
         );
       }
     } finally {
@@ -259,7 +256,7 @@ useEffect(() => {
     }
   }
 
-  loadQuestions();
+  loadQuestionSets();
 
   return () => {
     componentActive = false;
@@ -292,7 +289,7 @@ useEffect(() => {
     setDropdownOpen(false);
   }
 
-  function startQuiz() {
+async function startQuiz() {
   if (
     !user ||
     !user.participantName ||
@@ -303,46 +300,227 @@ useEffect(() => {
     return;
   }
 
-  const randomSetIndex = Math.floor(
-    Math.random() * questionSets.length
-  );
+  setQuestionsLoading(true);
+  setQuestionsError("");
 
-  const setName =
-    questionSets[randomSetIndex].set;
+  try {
+    const randomSetIndex =
+      Math.floor(
+        Math.random() *
+          questionSets.length
+      );
 
-  const questionsFromSet =
-    questionBank.filter(
-      (question) =>
-        question.set === setName
+    const selectedSetData =
+      questionSets[randomSetIndex];
+
+    const setName =
+      String(
+        selectedSetData.set || ""
+      ).trim();
+
+    const setFile =
+      String(
+        selectedSetData.file || ""
+      ).trim();
+
+    if (
+      setName === "" ||
+      setFile === ""
+    ) {
+      throw new Error(
+        "Konfigurasi set pertanyaan tidak lengkap."
+      );
+    }
+
+    const response = await fetch(
+      `${import.meta.env.BASE_URL}${setFile}`
     );
 
-  if (questionsFromSet.length !== 15) {
+    if (!response.ok) {
+      throw new Error(
+        `${setName} gagal dimuat. HTTP ${response.status}`
+      );
+    }
+
+    const data =
+      await response.json();
+
+    if (
+      String(data.set || "").trim() !==
+      setName
+    ) {
+      throw new Error(
+        `Nama set pada file ${setFile} tidak sesuai.`
+      );
+    }
+
+    if (
+      !Array.isArray(data.questions)
+    ) {
+      throw new Error(
+        `Format ${setName} tidak sesuai.`
+      );
+    }
+
+    if (
+      data.questions.length !== 15
+    ) {
+      throw new Error(
+        `${setName} tidak memiliki tepat 15 pertanyaan.`
+      );
+    }
+
+    const validQuestions =
+      data.questions.filter(
+        (question) => {
+          if (
+            String(
+              question.id || ""
+            ).trim() === ""
+          ) {
+            return false;
+          }
+
+          if (
+            String(
+              question.question || ""
+            ).trim() === ""
+          ) {
+            return false;
+          }
+
+          if (
+            !Array.isArray(
+              question.choices
+            ) ||
+            question.choices.length !== 4
+          ) {
+            return false;
+          }
+
+          return question.choices.every(
+            (choice) => {
+              const code =
+                String(
+                  choice.code || ""
+                )
+                  .trim()
+                  .toUpperCase();
+
+              const text =
+                String(
+                  choice.text || ""
+                ).trim();
+
+              return (
+                ["A", "B", "C", "D"].includes(
+                  code
+                ) &&
+                text !== ""
+              );
+            }
+          );
+        }
+      );
+
+    if (
+      validQuestions.length !== 15
+    ) {
+      throw new Error(
+        `${setName} memiliki pertanyaan atau pilihan jawaban yang tidak valid.`
+      );
+    }
+
+    const registeredIds =
+      new Set();
+
+    validQuestions.forEach(
+      (question) => {
+        const questionId =
+          String(
+            question.id
+          ).trim();
+
+        if (
+          registeredIds.has(
+            questionId
+          )
+        ) {
+          throw new Error(
+            `ID pertanyaan ${questionId} berulang pada ${setName}.`
+          );
+        }
+
+        registeredIds.add(
+          questionId
+        );
+      }
+    );
+
+    const preparedQuestions =
+      shuffleArray(
+        validQuestions
+      ).map((question) => ({
+        id:
+          String(
+            question.id
+          ).trim(),
+
+        set:
+          setName,
+
+        question:
+          String(
+            question.question
+          ).trim(),
+
+        choices:
+          shuffleArray(
+            question.choices.map(
+              (choice) => ({
+                code:
+                  String(
+                    choice.code
+                  )
+                    .trim()
+                    .toUpperCase(),
+
+                text:
+                  String(
+                    choice.text
+                  ).trim()
+              })
+            )
+          )
+      }));
+
+    setSelectedSet(setName);
+    setQuestions(preparedQuestions);
+    setQuestionIndex(0);
+    setAnswers({});
+    setStartedAt(
+      new Date().toISOString()
+    );
+    setFinished(false);
+    setResult(null);
+    setSubmitError("");
+  } catch (error) {
+    console.error(
+      "Gagal memulai quiz:",
+      error
+    );
+
+    setQuestions([]);
+    setSelectedSet("");
+
     setQuestionsError(
-      `${setName} tidak memiliki tepat 15 pertanyaan.`
+      error.message ||
+        "Pertanyaan gagal dimuat."
     );
-
-    return;
+  } finally {
+    setQuestionsLoading(false);
   }
-
-  const preparedQuestions =
-    shuffleArray(questionsFromSet).map(
-      (question) => ({
-        ...question,
-        choices: shuffleArray(
-          question.choices
-        )
-      })
-    );
-
-  setSelectedSet(setName);
-  setQuestions(preparedQuestions);
-  setQuestionIndex(0);
-  setAnswers({});
-  setStartedAt(new Date().toISOString());
-  setFinished(false);
-  setResult(null);
-  setSubmitError("");
-  }
+}
 
   function selectAnswer(selectedChoice) {
   const question =

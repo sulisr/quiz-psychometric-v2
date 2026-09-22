@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# File sumber bank soal private
+banksoal.xlsx
+
+# Script konversi lokal
+convert-questions.cjs

@@ -1,0 +1,337 @@
+{
+  "set": "Set 09",
+  "version": "2026.09.22.1",
+  "questionCount": 15,
+  "questions": [
+    {
+      "id": "121",
+      "question": "Kendaraan di depan bergerak lebih lambat dari ritme perjalanan Anda. Jadwal berikutnya cukup ketat. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Mempertahankan posisi lebih tegas supaya situasi tidak berulang."
+        },
+        {
+          "code": "B",
+          "text": "Menjaga pola berkendara sambil memberi waktu agar situasi kembali stabil."
+        },
+        {
+          "code": "C",
+          "text": "Sedikit menyesuaikan posisi sambil tetap memperhatikan perubahan di sekitar."
+        },
+        {
+          "code": "D",
+          "text": "Lebih aktif mencari posisi yang terasa nyaman agar gangguan cepat selesai."
+        }
+      ]
+    },
+    {
+      "id": "122",
+      "question": "Kendaraan di depan beberapa kali mengubah kecepatan tanpa pola yang jelas. Anda sudah berkendara cukup lama pada hari itu. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Melanjutkan dengan perhatian ekstra sambil memonitor apakah fokus kembali normal."
+        },
+        {
+          "code": "B",
+          "text": "Tetap melanjutkan karena biasanya fokus membaik setelah perjalanan berjalan."
+        },
+        {
+          "code": "C",
+          "text": "Mengecek apakah kondisi diri masih cukup fokus sebelum menentukan cara melanjutkan."
+        },
+        {
+          "code": "D",
+          "text": "Menganggap kondisi emosi tidak perlu memengaruhi keputusan untuk tetap berangkat."
+        }
+      ]
+    },
+    {
+      "id": "123",
+      "question": "Kendaraan lain masuk ke ruang di depan carrier dan membuat jarak aman berkurang. Anda sudah berkendara cukup lama pada hari itu. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Lebih aktif mencari peluang menghemat waktu pada bagian perjalanan yang memungkinkan."
+        },
+        {
+          "code": "B",
+          "text": "Mencoba menjaga ritme perjalanan sedikit lebih efisien tanpa mengubah batas yang biasa digunakan."
+        },
+        {
+          "code": "C",
+          "text": "Memprioritaskan pengurangan keterlambatan selama kondisi jalan terlihat mendukung."
+        },
+        {
+          "code": "D",
+          "text": "Menjaga standar berkendara dan mengelola keterlambatan melalui komunikasi."
+        }
+      ]
+    },
+    {
+      "id": "124",
+      "question": "Dispatcher beberapa kali meminta update karena delivery tertunda. Jadwal berikutnya cukup ketat. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Tetap melanjutkan karena biasanya fokus membaik setelah perjalanan berjalan."
+        },
+        {
+          "code": "B",
+          "text": "Melanjutkan dengan perhatian ekstra sambil memonitor apakah fokus kembali normal."
+        },
+        {
+          "code": "C",
+          "text": "Menganggap kondisi emosi tidak perlu memengaruhi keputusan untuk tetap berangkat."
+        },
+        {
+          "code": "D",
+          "text": "Mengecek apakah kondisi diri masih cukup fokus sebelum menentukan cara melanjutkan."
+        }
+      ]
+    },
+    {
+      "id": "125",
+      "question": "Kendaraan di depan bergerak lebih lambat dari ritme perjalanan Anda. Anda merasa sedikit lebih mudah terganggu dibanding biasanya. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Memprioritaskan pengurangan keterlambatan selama kondisi jalan terlihat mendukung."
+        },
+        {
+          "code": "B",
+          "text": "Mencoba menjaga ritme perjalanan sedikit lebih efisien tanpa mengubah batas yang biasa digunakan."
+        },
+        {
+          "code": "C",
+          "text": "Lebih aktif mencari peluang menghemat waktu pada bagian perjalanan yang memungkinkan."
+        },
+        {
+          "code": "D",
+          "text": "Menjaga standar berkendara dan mengelola keterlambatan melalui komunikasi."
+        }
+      ]
+    },
+    {
+      "id": "126",
+      "question": "Estimasi tiba sudah terlambat dari jadwal. Situasi serupa sudah terjadi beberapa kali hari itu. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Sedikit menyesuaikan posisi sambil tetap memperhatikan perubahan di sekitar."
+        },
+        {
+          "code": "B",
+          "text": "Lebih aktif mencari posisi yang terasa nyaman agar gangguan cepat selesai."
+        },
+        {
+          "code": "C",
+          "text": "Mempertahankan posisi lebih tegas supaya situasi tidak berulang."
+        },
+        {
+          "code": "D",
+          "text": "Menjaga pola berkendara sambil memberi waktu agar situasi kembali stabil."
+        }
+      ]
+    },
+    {
+      "id": "127",
+      "question": "Rute normal tidak dapat digunakan dan Anda harus memakai jalur alternatif. Jadwal berikutnya cukup ketat. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Cenderung memilih jalur atau posisi yang terlihat lebih cepat agar tidak terus tertahan."
+        },
+        {
+          "code": "B",
+          "text": "Mulai mencari alternatif yang lebih lancar tetapi tidak merasa harus segera berpindah."
+        },
+        {
+          "code": "C",
+          "text": "Menerima tambahan waktu dan menjaga keputusan tetap berdasarkan kondisi saat itu."
+        },
+        {
+          "code": "D",
+          "text": "Menjaga posisi lebih rapat agar kesempatan maju tidak kembali diambil kendaraan lain."
+        }
+      ]
+    },
+    {
+      "id": "128",
+      "question": "Rute normal tidak dapat digunakan dan Anda harus memakai jalur alternatif. Anda merasa sedikit lebih mudah terganggu dibanding biasanya. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Menunggu sampai ruang dan pergerakan kendaraan lain lebih mudah diprediksi."
+        },
+        {
+          "code": "B",
+          "text": "Mengambil kesempatan yang tersedia agar momentum perjalanan tidak hilang."
+        },
+        {
+          "code": "C",
+          "text": "Memanfaatkan celah segera sebelum kesempatan tersebut tertutup."
+        },
+        {
+          "code": "D",
+          "text": "Menyiapkan perubahan posisi tetapi baru melakukannya setelah margin terasa cukup."
+        }
+      ]
+    },
+    {
+      "id": "129",
+      "question": "Kendaraan lain masuk ke ruang di depan carrier dan membuat jarak aman berkurang. Anda merasa sedikit lebih mudah terganggu dibanding biasanya. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Sedikit menyesuaikan posisi sambil tetap memperhatikan perubahan di sekitar."
+        },
+        {
+          "code": "B",
+          "text": "Mempertahankan posisi lebih tegas supaya situasi tidak berulang."
+        },
+        {
+          "code": "C",
+          "text": "Lebih aktif mencari posisi yang terasa nyaman agar gangguan cepat selesai."
+        },
+        {
+          "code": "D",
+          "text": "Menjaga pola berkendara sambil memberi waktu agar situasi kembali stabil."
+        }
+      ]
+    },
+    {
+      "id": "130",
+      "question": "Estimasi tiba sudah terlambat dari jadwal. Anda sudah berkendara cukup lama pada hari itu. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Cenderung memilih jalur atau posisi yang terlihat lebih cepat agar tidak terus tertahan."
+        },
+        {
+          "code": "B",
+          "text": "Menerima tambahan waktu dan menjaga keputusan tetap berdasarkan kondisi saat itu."
+        },
+        {
+          "code": "C",
+          "text": "Mulai mencari alternatif yang lebih lancar tetapi tidak merasa harus segera berpindah."
+        },
+        {
+          "code": "D",
+          "text": "Menjaga posisi lebih rapat agar kesempatan maju tidak kembali diambil kendaraan lain."
+        }
+      ]
+    },
+    {
+      "id": "131",
+      "question": "Antrean bergerak tersendat dan waktu perjalanan mulai bertambah. Situasi serupa sudah terjadi beberapa kali hari itu. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Menjaga standar berkendara dan mengelola keterlambatan melalui komunikasi."
+        },
+        {
+          "code": "B",
+          "text": "Lebih aktif mencari peluang menghemat waktu pada bagian perjalanan yang memungkinkan."
+        },
+        {
+          "code": "C",
+          "text": "Memprioritaskan pengurangan keterlambatan selama kondisi jalan terlihat mendukung."
+        },
+        {
+          "code": "D",
+          "text": "Mencoba menjaga ritme perjalanan sedikit lebih efisien tanpa mengubah batas yang biasa digunakan."
+        }
+      ]
+    },
+    {
+      "id": "132",
+      "question": "Dispatcher beberapa kali meminta update karena delivery tertunda. Jadwal berikutnya cukup ketat. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Menerima tambahan waktu dan menjaga keputusan tetap berdasarkan kondisi saat itu."
+        },
+        {
+          "code": "B",
+          "text": "Menjaga posisi lebih rapat agar kesempatan maju tidak kembali diambil kendaraan lain."
+        },
+        {
+          "code": "C",
+          "text": "Cenderung memilih jalur atau posisi yang terlihat lebih cepat agar tidak terus tertahan."
+        },
+        {
+          "code": "D",
+          "text": "Mulai mencari alternatif yang lebih lancar tetapi tidak merasa harus segera berpindah."
+        }
+      ]
+    },
+    {
+      "id": "133",
+      "question": "Estimasi tiba sudah terlambat dari jadwal. Situasi serupa sudah terjadi beberapa kali hari itu. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Memanfaatkan celah segera sebelum kesempatan tersebut tertutup."
+        },
+        {
+          "code": "B",
+          "text": "Menyiapkan perubahan posisi tetapi baru melakukannya setelah margin terasa cukup."
+        },
+        {
+          "code": "C",
+          "text": "Mengambil kesempatan yang tersedia agar momentum perjalanan tidak hilang."
+        },
+        {
+          "code": "D",
+          "text": "Menunggu sampai ruang dan pergerakan kendaraan lain lebih mudah diprediksi."
+        }
+      ]
+    },
+    {
+      "id": "134",
+      "question": "Ada masalah pribadi yang masih terlintas saat Anda akan memulai perjalanan. Jadwal berikutnya cukup ketat. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Menganggap kondisi emosi tidak perlu memengaruhi keputusan untuk tetap berangkat."
+        },
+        {
+          "code": "B",
+          "text": "Tetap melanjutkan karena biasanya fokus membaik setelah perjalanan berjalan."
+        },
+        {
+          "code": "C",
+          "text": "Mengecek apakah kondisi diri masih cukup fokus sebelum menentukan cara melanjutkan."
+        },
+        {
+          "code": "D",
+          "text": "Melanjutkan dengan perhatian ekstra sambil memonitor apakah fokus kembali normal."
+        }
+      ]
+    },
+    {
+      "id": "135",
+      "question": "Rute normal tidak dapat digunakan dan Anda harus memakai jalur alternatif. Jadwal berikutnya cukup ketat. Respons yang paling mungkin Anda lakukan adalah...",
+      "choices": [
+        {
+          "code": "A",
+          "text": "Menyiapkan perubahan posisi tetapi baru melakukannya setelah margin terasa cukup."
+        },
+        {
+          "code": "B",
+          "text": "Mengambil kesempatan yang tersedia agar momentum perjalanan tidak hilang."
+        },
+        {
+          "code": "C",
+          "text": "Memanfaatkan celah segera sebelum kesempatan tersebut tertutup."
+        },
+        {
+          "code": "D",
+          "text": "Menunggu sampai ruang dan pergerakan kendaraan lain lebih mudah diprediksi."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "version": "2026.09.22.1",
+  "totalSets": 20,
+  "totalQuestions": 300,
+  "sets": [
+    {
+      "set": "Set 01",
+      "file": "questions/set-01.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 02",
+      "file": "questions/set-02.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 03",
+      "file": "questions/set-03.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 04",
+      "file": "questions/set-04.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 05",
+      "file": "questions/set-05.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 06",
+      "file": "questions/set-06.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 07",
+      "file": "questions/set-07.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 08",
+      "file": "questions/set-08.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 09",
+      "file": "questions/set-09.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 10",
+      "file": "questions/set-10.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 11",
+      "file": "questions/set-11.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 12",
+      "file": "questions/set-12.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 13",
+      "file": "questions/set-13.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 14",
+      "file": "questions/set-14.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 15",
+      "file": "questions/set-15.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 16",
+      "file": "questions/set-16.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 17",
+      "file": "questions/set-17.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 18",
+      "file": "questions/set-18.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 19",
+      "file": "questions/set-19.json",
+      "questionCount": 15
+    },
+    {
+      "set": "Set 20",
+      "file": "questions/set-20.json",
+      "questionCount": 15
+    }
+  ]
+}
