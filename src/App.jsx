@@ -899,7 +899,7 @@ async function submitQuiz() {
                   />
                 </div>
 
-                <h2 className="mb-6 text-xl font-bold leading-relaxed">
+                <h2 className="mb-5 text-lg font-bold leading-relaxed">
                   {currentQuestion.question}
                 </h2>
 
@@ -929,15 +929,17 @@ async function submitQuiz() {
                           onClick={() =>
                             selectAnswer(choice)
                           }
-                          className={`rounded-xl border-2 p-4 text-left transition ${choiceClass}`}
-                        >
-                          <span className="mr-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-sm font-bold shadow-sm">
+                          className={`flex w-full items-start rounded-xl border-2 p-3 text-left text-sm leading-relaxed transition ${choiceClass}`}
+                          >
+                          <span className="mr-2 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold shadow-sm">
                             {String.fromCharCode(
                               65 + choiceIndex
                             )}
                           </span>
 
-                          {choice.text}
+                          <span className="flex-1">
+                            {choice.text}
+                          </span>
                         </button>
                       );
                     }
