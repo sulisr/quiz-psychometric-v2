@@ -3,10 +3,8 @@ export const STATIC_USERS = [
     "participantName": "A AFRIADI ALI",
     "carrier": "KMDI"
   },
-  {
-    "participantName": "tes pakai hp",
-    "carrier" : "vld"
-  },
+  {"participantName":"Muh. Rifki","carrier":"BJU"},
+  {"participantName": "tes pakai hp","carrier" : "vld"},
   {
     "participantName": "A ANDRY ERWIN M",
     "carrier": "PAM"
