@@ -157,86 +157,195 @@ const usersError = "";
 useEffect(() => {
   let componentActive = true;
 
-  async function loadQuestionSets() {
-    setQuestionsLoading(true);
-    setQuestionsError("");
+  async function submitQuiz() {
+  if (
+    !hasCurrentAnswer() ||
+    isSubmitting
+  ) {
+    return;
+  }
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.BASE_URL}question-sets.json`
+  setIsSubmitting(true);
+  setSubmitError("");
+
+  try {
+    const submittedAt =
+      new Date().toISOString();
+
+    const startedTime =
+      new Date(startedAt).getTime();
+
+    const submittedTime =
+      new Date(submittedAt).getTime();
+
+    const durationSeconds =
+      Math.max(
+        0,
+        Math.round(
+          (
+            submittedTime -
+            startedTime
+          ) / 1000
+        )
       );
 
-      if (!response.ok) {
-        throw new Error(
-          `HTTP error ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-
-      if (!Array.isArray(data.sets)) {
-        throw new Error(
-          "Format daftar set pertanyaan tidak sesuai."
-        );
-      }
-
-      const validSets =
-        data.sets.filter((item) => {
-          const setName =
-            String(
-              item.set || ""
-            ).trim();
-
-          const setFile =
-            String(
-              item.file || ""
-            ).trim();
-
-          const questionCount =
-            Number(
-              item.questionCount
+    /*
+     * Membentuk daftar 15 jawaban
+     * berdasarkan urutan pertanyaan
+     * yang ditampilkan saat quiz.
+     */
+    const answerDetails =
+      questions.map(
+        (question) => {
+          const questionKey =
+            getQuestionKey(
+              question
             );
 
-          return (
-            setName !== "" &&
-            setFile !== "" &&
-            questionCount === 15
-          );
-        });
+          const selectedChoice =
+            answers[questionKey];
 
-      if (validSets.length === 0) {
-        throw new Error(
-          "Tidak ditemukan set dengan tepat 15 pertanyaan."
-        );
-      }
+          return {
+            questionId:
+              String(
+                question.id || ""
+              ).trim(),
 
-      if (componentActive) {
-        setQuestionSets(validSets);
-
-        console.log(
-          `${validSets.length} set pertanyaan berhasil dimuat dari GitHub.`
-        );
-      }
-    } catch (error) {
-      console.error(
-        "Gagal memuat daftar set pertanyaan:",
-        error
+            selectedCode:
+              String(
+                selectedChoice?.code ||
+                  ""
+              )
+                .trim()
+                .toUpperCase()
+          };
+        }
       );
 
-      if (componentActive) {
-        setQuestionSets([]);
+    /*
+     * Memastikan tepat 15 soal
+     * sudah memiliki jawaban.
+     */
+    const allQuestionsAnswered =
+      answerDetails.length === 15 &&
+      answerDetails.every(
+        (answer) => {
+          return (
+            answer.questionId !== "" &&
+            [
+              "A",
+              "B",
+              "C",
+              "D"
+            ].includes(
+              answer.selectedCode
+            )
+          );
+        }
+      );
 
-        setQuestionsError(
-          error.message ||
-            "Daftar set pertanyaan gagal dimuat."
-        );
-      }
-    } finally {
-      if (componentActive) {
-        setQuestionsLoading(false);
-      }
+    if (!allQuestionsAnswered) {
+      throw new Error(
+        "Masih ada pertanyaan yang belum dijawab."
+      );
     }
+
+    if (
+      !user ||
+      !user.participantName
+    ) {
+      throw new Error(
+        "Data peserta tidak ditemukan."
+      );
+    }
+
+    if (!selectedSet) {
+      throw new Error(
+        "Set pertanyaan tidak ditemukan."
+      );
+    }
+
+    const quizResult = {
+      submissionId:
+        createSubmissionId(),
+
+      user:
+        user.participantName,
+
+      carrier:
+        user.carrier || "",
+
+      set:
+        selectedSet,
+
+      startedAt:
+        startedAt,
+
+      submittedAt:
+        submittedAt,
+
+      durationSeconds:
+        durationSeconds,
+
+      /*
+       * Array berisi tepat
+       * 15 object jawaban.
+       */
+      answers:
+        answerDetails,
+
+      status:
+        "Selesai"
+    };
+
+    console.log(
+      "Data yang akan dikirim:",
+      quizResult
+    );
+
+    await fetch(
+      GOOGLE_SCRIPT_URL,
+      {
+        method: "POST",
+
+        /*
+         * Dipertahankan karena Apps Script
+         * Web App biasanya memerlukan
+         * no-cors dari GitHub Pages.
+         */
+        mode: "no-cors",
+
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify(
+            quizResult
+          )
+      }
+    );
+
+    setResult({
+      ...quizResult
+    });
+
+    setFinished(true);
+  } catch (error) {
+    console.error(
+      "Pengiriman hasil gagal:",
+      error
+    );
+
+    setSubmitError(
+      error?.message ||
+        "Hasil belum berhasil dikirim. Periksa koneksi internet, kemudian coba kembali."
+    );
+  } finally {
+    setIsSubmitting(false);
   }
+}
 
   loadQuestionSets();
 
