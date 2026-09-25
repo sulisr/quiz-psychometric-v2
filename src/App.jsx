@@ -601,51 +601,61 @@ async function submitQuiz() {
     )
   );
 
-  const answerDetails =
-    questions.map((question) => {
-      const questionKey =
-        getQuestionKey(question);
+  const questionDetails = questions
+  .map((question, index) => {
+    return `${index + 1}. ${question.question}`;
+  })
+  .join(" || ");
 
-      const selectedChoice =
-        answers[questionKey];
+const answerDetails = questions
+  .map((question, index) => {
+    const questionKey =
+      getQuestionKey(question);
 
-      return {
-        questionId:
-          question.id,
+    const selectedChoice =
+      answers[questionKey];
 
-        selectedCode:
-          selectedChoice?.code || ""
-      };
-    });
+    const selectedCode =
+      selectedChoice?.code || "";
+
+    const selectedText =
+      selectedChoice?.text || "";
+
+    return `${index + 1}. ${selectedCode} - ${selectedText}`;
+  })
+  .join(" || ");
 
   const quizResult = {
-    submissionId:
-      createSubmissionId(),
+  submissionId:
+    createSubmissionId(),
 
-    user:
-      user.participantName,
+  user:
+    user.participantName,
 
-    carrier:
-      user.carrier || "",
+  carrier:
+    user.carrier || "",
 
-    set:
-      selectedSet,
+  set:
+    selectedSet,
 
-    startedAt:
-      startedAt,
+  startedAt:
+    startedAt,
 
-    submittedAt:
-      submittedAt,
+  submittedAt:
+    submittedAt,
 
-    durationSeconds:
-      durationSeconds,
+  durationSeconds:
+    durationSeconds,
 
-    answers:
-      answerDetails,
+  questions:
+    questionDetails,
 
-    status:
-      "Selesai"
-  };
+  answers:
+    answerDetails,
+
+  status:
+    "Selesai"
+};
 
   try {
     await fetch(
