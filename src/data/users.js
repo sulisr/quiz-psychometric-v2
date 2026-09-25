@@ -4,6 +4,9 @@ export const STATIC_USERS = [
     "carrier": "KMDI"
   },
   {"participantName":"Muh. Rifki","carrier":"BJU"},
+  {"participantName":"RIJAL","carrier":"BJU"},
+  {"participantName":"BUSTAM DG MAJJA","carrier":"BJU"},
+  {"participantName":"Syamsir Natsir","carrier":"BJU"},
   {"participantName": "tes pakai hp","carrier" : "vld"},
   {
     "participantName": "A ANDRY ERWIN M",
