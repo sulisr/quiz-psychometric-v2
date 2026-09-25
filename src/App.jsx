@@ -601,61 +601,59 @@ async function submitQuiz() {
     )
   );
 
-  const questionDetails = questions
-  .map((question, index) => {
-    return `${index + 1}. ${question.question}`;
-  })
-  .join(" || ");
 
-const answerDetails = questions
-  .map((question, index) => {
-    const questionKey =
-      getQuestionKey(question);
+  const allQuestionsAnswered =
+    answerDetails.length === 15 &&
+    answerDetails.every((answer) => {
+      return (
+        answer.questionId !== "" &&
+        ["A", "B", "C", "D"].includes(
+          answer.selectedCode
+        )
+      );
+    });
 
-    const selectedChoice =
-      answers[questionKey];
+  if (!allQuestionsAnswered) {
+    setSubmitError(
+      "Masih ada pertanyaan yang belum dijawab."
+    );
 
-    const selectedCode =
-      selectedChoice?.code || "";
-
-    const selectedText =
-      selectedChoice?.text || "";
-
-    return `${index + 1}. ${selectedCode} - ${selectedText}`;
-  })
-  .join(" || ");
+    setIsSubmitting(false);
+    return;
+  }
 
   const quizResult = {
-  submissionId:
-    createSubmissionId(),
+    submissionId:
+      createSubmissionId(),
 
-  user:
-    user.participantName,
+    user:
+      user.participantName,
 
-  carrier:
-    user.carrier || "",
+    carrier:
+      user.carrier || "",
 
-  set:
-    selectedSet,
+    set:
+      selectedSet,
 
-  startedAt:
-    startedAt,
+    startedAt:
+      startedAt,
 
-  submittedAt:
-    submittedAt,
+    submittedAt:
+      submittedAt,
 
-  durationSeconds:
-    durationSeconds,
+    durationSeconds:
+      durationSeconds,
 
-  questions:
-    questionDetails,
+    /*
+     * Wajib tetap berupa array berisi
+     * tepat 15 object.
+     */
+    answers:
+      answerDetails,
 
-  answers:
-    answerDetails,
-
-  status:
-    "Selesai"
-};
+    status:
+      "Selesai"
+  };
 
   try {
     await fetch(
