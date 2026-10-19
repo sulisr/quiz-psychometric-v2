@@ -744,11 +744,11 @@ async function submitQuiz() {
           </div>
 
           <h1 className="text-3xl font-bold tracking-tight">
-            Psychometric Test
+            Driving Behaviour Test
           </h1>
 
           <p className="mt-3 text-slate-500">
-          Psychometric assessment • 15 pertanyaan
+          Driving Behaviour assessment • 15 pertanyaan
           </p>
         </header>
 
