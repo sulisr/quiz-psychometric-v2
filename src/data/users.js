@@ -14,6 +14,10 @@ export const STATIC_USERS = [
   {"participantName":"Abd Rahman","carrier":"BJU"},
   {"participantName":"Nur Ikhsan Palaguna","carrier":"BJU"},
   {"participantName":"Juanda Malik","carrier":"BJU"},
+  {"participantName":"Swandi","carrier":"BJU"},
+  {"participantName":"Arjun","carrier":"BJU"},
+  {"participantName":"Jajat Priadi","carrier":"BJU"},
+  {"participantName":"Hendra Dg.Nyonri","carrier":"BJU"},
   {
     "participantName": "A ANDRY ERWIN M",
     "carrier": "PAM"
