@@ -868,7 +868,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Aris fardiansah",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "ARIS LUKMAN",
@@ -1168,7 +1168,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Budi prastia",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "Budi Prayitno",
@@ -1664,7 +1664,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Eka mardiyanta",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "EKA PRAYUDHA APRILIANTO",
@@ -1804,7 +1804,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Erwin",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "ERWIN ATMAJA",
@@ -1904,7 +1904,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Farish",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "FARIYADI",
@@ -2172,7 +2172,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Harsono kurniawan",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "Hasan Basri",
@@ -2232,7 +2232,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Hendra budi hartanto",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "HENDRA BUDI HARTONO",
@@ -2323,7 +2323,7 @@ export const STATIC_USERS = [
     "carrier": "KPLM"
   },
   {
-    "participantName": "Herman ( PARANI)",
+    "participantName": "Herman ( PAM)",
     "carrier": "PAM"
   },
   {
@@ -2644,7 +2644,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Iswahyudi",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "ISWANDI",
@@ -4432,7 +4432,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Rudi hartono",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "Rudi Hermawan",
@@ -4712,7 +4712,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Sawon",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "Sebut Saja Mawar",
@@ -5024,7 +5024,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Sukur",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "SULAEMAN",
@@ -5876,7 +5876,7 @@ export const STATIC_USERS = [
   },
   {
     "participantName": "Yudi sulistiyo",
-    "carrier": "PARANI"
+    "carrier": "PAM"
   },
   {
     "participantName": "YUDI WAHYUDI",
