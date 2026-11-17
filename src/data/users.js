@@ -4,6 +4,7 @@ export const STATIC_USERS = [
     "carrier": "KMDI"
   },
   {"participantName":"Muh. Rifki","carrier":"BJU"},
+  {"participantName":"Stevanus pieter","carrier":"JSS"},
   {"participantName":"RIJAL","carrier":"BJU"},
   {"participantName":"BUSTAM DG MAJJA","carrier":"BJU"},
   {"participantName":"Syamsir Natsir","carrier":"BJU"},
